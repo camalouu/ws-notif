@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>tunnel</title>
+</head>
+<style>
+    #notification {
+        padding: 15px;
+        background-color: #4CAF50;
+        color: white;
+        margin-bottom: 15px;
+        width: 200px;
+        border-radius: 5px;
+    }
+</style>
+
+<body>
+    <center>
+        <h1>Notification:</h1>
+        <div id="notification"></div>
+    </center>
+</body>
+
+<script>
+    const socket = new WebSocket("ws://localhost:8080");
+
+    socket.onopen = event => {
+        socket.send("ping");
+    };
+
+    socket.onmessage = event => {
+        console.log("Message from server ", event.data);
+        document.getElementById("notification").innerText = event.data
+    };
+</script>
+
+</html>
